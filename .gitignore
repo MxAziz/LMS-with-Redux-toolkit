@@ -25,6 +25,3 @@ dist-ssr
 *.sw?
 
 # temporary files
-Navbar.tsx
-Footer.tsx
-sheet.tsx
