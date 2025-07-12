@@ -11,8 +11,5 @@ export interface IBook {
 
 export interface IBorrowedBook {
   totalQuantity: number;
-  book: {
-    title: string;
-    isbn: string;
-  };
+  book: { title: string; isbn: string; };
 }
