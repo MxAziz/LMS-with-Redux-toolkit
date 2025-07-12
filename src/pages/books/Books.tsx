@@ -7,6 +7,7 @@ import { data } from "react-router-dom";
 import type { IBook } from './../../types/types';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge";
+import { Tooltip, TooltipContent, TooltipTrigger, } from "@/components/ui/tooltip"
 
 const Books = () => {
   const { data: books, isLoading, refetch } = useGetBooksQuery({});
@@ -77,23 +78,44 @@ const Books = () => {
                 </TableCell>
                 <TableCell>
                   <div className="flex items-center space-x-2">
-                    <Button variant="ghost" size="sm" asChild>
-                      <Link to={`/books/${book._id}`}>
-                        <Eye className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                    <Button variant="ghost" size="sm" asChild>
-                      <Link to={`/edit-book/${book._id}`}>
-                        <Edit className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                    {book.available && book.copies > 0 && (
-                      <Button variant="ghost" size="sm" asChild>
-                        <Link to={`/borrow/${book._id}`}>
-                          <Album className="h-4 w-4" />
-                        </Link>
-                      </Button>
-                    )}
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Button variant="ghost" size="sm" asChild>
+                          <Link to={`/books/${book._id}`}>
+                            <Eye className="h-4 w-4" />
+                          </Link>
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>View Book</p>
+                      </TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <Button variant="ghost" size="sm" asChild>
+                          <Link to={`/edit-book/${book._id}`}>
+                            <Edit className="h-4 w-4" />
+                          </Link>
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Edit Book</p>
+                      </TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger>
+                        {book.available && book.copies > 0 && (
+                          <Button variant="ghost" size="sm" asChild>
+                            <Link to={`/borrow/${book._id}`}>
+                              <Album className="h-4 w-4" />
+                            </Link>
+                          </Button>
+                        )}
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Borrow Book</p>
+                      </TooltipContent>
+                    </Tooltip>
                     {/* <DeleteBookButton bookId={book._id} refetch={refetch} /> */}
                   </div>
                 </TableCell>
