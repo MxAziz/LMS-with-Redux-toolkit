@@ -31,7 +31,7 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold mb-2">Contact Info</h3>
           <ul className="text-sm space-y-1">
-            <li>Email: support@librarymanager.com</li>
+            <li>Email: support@LibroDesk.com</li>
             <li>Phone: +880 1234-567890</li>
             <li>Address: PUST Campus, Pabna, Bangladesh</li>
           </ul>
