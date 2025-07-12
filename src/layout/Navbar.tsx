@@ -25,7 +25,7 @@ const Navbar = () => {
           <div className="flex items-center">
             <Link to="/books" className="flex items-center space-x-2">
               <Snail className="h-6 w-6 sm:h-8 sm:w-8" />
-              <span className="text-lg sm:text-xl font-bold">LibroDesk LMS</span>
+              <span className="text-lg sm:text-xl font-bold">BookNest</span>
             </Link>
           </div>
 

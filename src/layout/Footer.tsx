@@ -9,7 +9,7 @@ const Footer = () => {
         <div>
           <h2 className="text-xl font-bold mb-2">
             <Snail className="inline-block mr-2 h-6 w-6" />
-            LibroDesk LMS
+          BookNest
           </h2>
           <p className="text-sm">
             Smart way to manage your books, borrowing and users in one place.
