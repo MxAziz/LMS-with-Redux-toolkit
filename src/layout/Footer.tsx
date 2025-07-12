@@ -31,7 +31,7 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold mb-2">Contact Info</h3>
           <ul className="text-sm space-y-1">
-            <li>Email: support@LibroDesk.com</li>
+            <li>Email: support@BookNest.com</li>
             <li>Phone: +880 1234-567890</li>
             <li>Address: PUST Campus, Pabna, Bangladesh</li>
           </ul>
@@ -40,7 +40,7 @@ const Footer = () => {
 
       {/* Bottom Section */}
       <div className="mt-8 text-center text-xs text-white/80">
-        &copy; {new Date().getFullYear()} LibroDesk LMS. All rights reserved.
+        &copy; {new Date().getFullYear()} BookNest. All rights reserved.
       </div>
     </footer>
   )

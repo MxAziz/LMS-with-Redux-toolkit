@@ -39,7 +39,7 @@ const Navbar = () => {
                   variant={"ghost"}
                   asChild
                   className={
-                    isActive(item.href) ? "border-b border-rose-800" : ""
+                    isActive(item.href) ? "border-b border-white-800" : ""
                   }
                 >
                   <Link to={item.href}>
@@ -63,9 +63,9 @@ const Navbar = () => {
                 <div className="flex flex-col space-y-4 mt-8 px-4">
                   <h2 className="text-lg font-bold">
                     <Snail className="inline-block mr-2 h-6 w-6" />
-                    LibroDesk LMS
+                    BookNest
                   </h2>
-                  <hr className="text-emerald-500" />
+                  <hr />
                   {navItems.map((item) => {
                     const Icon = item.icon;
                     return (
@@ -74,7 +74,7 @@ const Navbar = () => {
                         variant={"ghost"}
                         asChild
                         className={
-                          isActive(item.href) ? "border-b border-rose-800" : ""
+                          isActive(item.href) ? "border-b border-white-800" : ""
                         }
                         onClick={() => setIsOpen(false)}
                       >

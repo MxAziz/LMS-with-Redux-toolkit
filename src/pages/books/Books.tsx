@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useGetBooksQuery } from "@/redux/Api/bookApi";
-import { Album, Edit, Eye, Plus } from "lucide-react";
+import { Album, BrushCleaning, Edit, Eye, Plus } from "lucide-react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import type { IBook } from './../../types/types';
@@ -126,7 +126,10 @@ const Books = () => {
 
       {books?.data?.length === 0 && (
         <div className="text-center py-12">
-          <p className="text-gray-500 text-lg">No books found.</p>
+          <div className="flex flex-col items-center">
+            <BrushCleaning className="size-36"></BrushCleaning>
+            <p className="text-gray-500 text-lg">No books found.</p>
+          </div>
           <Button asChild className="mt-4">
             <Link to="/create-book">Add your first book</Link>
           </Button>
