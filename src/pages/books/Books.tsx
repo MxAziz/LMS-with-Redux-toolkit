@@ -3,16 +3,15 @@ import { useGetBooksQuery } from "@/redux/Api/bookApi";
 import { Album, Edit, Eye, Plus } from "lucide-react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { data } from "react-router-dom";
 import type { IBook } from './../../types/types';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "@/components/ui/table"
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipTrigger, } from "@/components/ui/tooltip"
+import MobileCard from "./MobileCard";
 
 const Books = () => {
   const { data: books, isLoading, refetch } = useGetBooksQuery({});
 
-    console.log(data, books, isLoading, refetch);
 
   useEffect(() => {
     refetch();
@@ -43,9 +42,9 @@ const Books = () => {
       {/* Mobile Card View */}
       <div className="block lg:hidden">
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          {/* {books?.data?.map((book: IBook) => (
-            <BookCard key={book._id} book={book} />
-          ))} */}
+          {books?.data?.map((book: IBook) => (
+            <MobileCard key={book._id} book={book} />
+          ))}
         </div>
       </div>
 
