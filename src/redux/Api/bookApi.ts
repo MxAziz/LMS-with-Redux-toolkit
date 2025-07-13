@@ -14,8 +14,12 @@ export const bookApi = createApi({
       query: (id) => `books/${id}`,
       providesTags: ["Book"]
     }),
+    getBorrowedBooksSummary: builder.query({
+      query: () => "/borrow",
+      providesTags: ["Book"]
+    })
   }),
 });
 
 
-export const { useGetBooksQuery, useGetBookByIdQuery } = bookApi;
+export const { useGetBooksQuery, useGetBookByIdQuery , useGetBorrowedBooksSummaryQuery } = bookApi;
