@@ -2,24 +2,34 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 
 export const bookApi = createApi({
-  reducerPath: "bookApi", // jekono name deya jete pare (unique hote hobe)
-  baseQuery: fetchBaseQuery({ baseUrl: "https://lms-server-iota.vercel.app/api/" }),
+  reducerPath: "bookApi",
+  baseQuery: fetchBaseQuery({
+    baseUrl: "https://lms-server-iota.vercel.app/api/",
+  }),
   tagTypes: ["Book"], // data cache kore rakhe. (multiple tag thakte pare)
   endpoints: (builder) => ({
     getBooks: builder.query({
-        query: () => "books",
-        providesTags: ["Book"]
+      query: () => "books",
+      providesTags: ["Book"],
     }),
     getBookById: builder.query({
       query: (id) => `books/${id}`,
-      providesTags: ["Book"]
+      providesTags: ["Book"],
+    }),
+    borrowBook: builder.mutation({
+      query: (borrowData) => ({
+        url: "/borrow/",
+        method: "POST",
+        body: borrowData,
+      }),
+      invalidatesTags: ["Book"],
     }),
     getBorrowedBooksSummary: builder.query({
       query: () => "/borrow",
-      providesTags: ["Book"]
-    })
+      providesTags: ["Book"],
+    }),
   }),
 });
 
 
-export const { useGetBooksQuery, useGetBookByIdQuery , useGetBorrowedBooksSummaryQuery } = bookApi;
+export const { useGetBooksQuery, useGetBookByIdQuery, useBorrowBookMutation, useGetBorrowedBooksSummaryQuery } = bookApi;
