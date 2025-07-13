@@ -36,7 +36,30 @@ const BorrowBook = () => {
     setDueDate(defaultDate.toISOString().split("T")[0]);
   });
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
 
+    try {
+      const res = await borrowBook({
+        book: id,
+        quantity,
+        dueDate,
+      }).unwrap();
+
+      if (res.success) {
+        refetch();
+        navigate("/borrow-summary");
+        toast.success("📚 Book borrowed successfully!");
+      }
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
+      console.error("Failed to borrow book:", error);
+      toast.error(error?.data?.message || "❌ Failed to borrow book");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
