@@ -1,0 +1,2 @@
+primary background color = #226957
+secondary bg color = #687fc3

@@ -1,6 +1,7 @@
 
 import App from "@/App";
-import Books from "@/pages/books/books";
+import BookDetails from "@/pages/books/BookDetails";
+import Books from "@/pages/books/Books";
 import { createBrowserRouter } from "react-router";
 
 const router = createBrowserRouter([
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
       {
         path: "/books",
         element: <Books />,
+      },
+      {
+        path: `/books/:id`,
+        element: <BookDetails />,
       },
     ],
   },
