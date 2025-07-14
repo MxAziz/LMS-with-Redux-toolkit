@@ -25,6 +25,3 @@ dist-ssr
 *.sw?
 
 # temporary files
-AddBook.tsx
-BookForm.tsx
-# This code is not working.
