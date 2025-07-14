@@ -116,7 +116,14 @@ const Books = () => {
                         <p>Borrow Book</p>
                       </TooltipContent>
                     </Tooltip>
-                    <DeleteBookButton bookId={book._id} refetch={refetch} />
+                    <Tooltip>
+                      <TooltipTrigger>
+                        <DeleteBookButton bookId={book._id} refetch={refetch} />
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Delete Book</p>
+                      </TooltipContent>
+                    </Tooltip>
                   </div>
                 </TableCell>
               </TableRow>
