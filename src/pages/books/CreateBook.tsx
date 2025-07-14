@@ -56,7 +56,7 @@ export default function CreateBook() {
     <div className="max-w-2xl mx-auto p-12 mt-6 bg-gradient-to-br from-[#226957] to-[#687fc3] text-white rounded-xl shadow-md space-y-4">
       <h2 className="text-2xl font-bold">Add New Book</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div className="flex justify-center items-center space-x-4">
+        <div className="md:flex justify-center items-center space-x-4">
           <div className="w-full">
             <Label className="mb-2">Title *</Label>
             <Input {...register("title")} />
@@ -74,7 +74,7 @@ export default function CreateBook() {
           </div>
         </div>
 
-        <div className="flex justify-center items-center space-x-4">
+        <div className="md:flex justify-center items-center space-x-4">
           <div className="w-full">
             <Label className="mb-2">Genre *</Label>
             <Input {...register("genre")} />
@@ -97,20 +97,20 @@ export default function CreateBook() {
           <Textarea {...register("description")} />
         </div>
 
-          <div className="flex items-center justify-between space-x-2">
-        <div>
-          <Label className="mb-2">Copies</Label>
-          <Input
+        <div className="md:flex items-center justify-between space-x-2">
+          <div>
+            <Label className="mb-2">Copies</Label>
+            <Input
               type="number"
-            className="w-80"
-            {...register("copies", { valueAsNumber: true })}
-          />
-          {errors.copies && (
-            <p className="text-red-500 text-sm">{errors.copies.message}</p>
-          )}
-        </div>
+              className="w-80"
+              {...register("copies", { valueAsNumber: true })}
+            />
+            {errors.copies && (
+              <p className="text-red-500 text-sm">{errors.copies.message}</p>
+            )}
+          </div>
 
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-2 mt-4 ">
             <Switch
               id="available"
               checked={watch("available")}
@@ -120,7 +120,9 @@ export default function CreateBook() {
           </div>
         </div>
 
-          <Button className="cursor-pointer" type="submit">Create Book</Button>
+        <Button className="cursor-pointer" type="submit">
+          Create Book
+        </Button>
       </form>
     </div>
   );
