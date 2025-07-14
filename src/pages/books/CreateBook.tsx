@@ -53,54 +53,74 @@ export default function CreateBook() {
   };
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white rounded-xl shadow-md space-y-4">
+    <div className="max-w-2xl mx-auto p-12 mt-6 bg-gradient-to-br from-[#226957] to-[#687fc3] text-white rounded-xl shadow-md space-y-4">
       <h2 className="text-2xl font-bold">Add New Book</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <Label>Title</Label>
-          <Input {...register("title")} />
-          {errors.title && <p className="text-red-500 text-sm">{errors.title.message}</p>}
+        <div className="flex justify-center items-center space-x-4">
+          <div className="w-full">
+            <Label className="mb-2">Title *</Label>
+            <Input {...register("title")} />
+            {errors.title && (
+              <p className="text-red-500 text-sm">{errors.title.message}</p>
+            )}
+          </div>
+
+          <div className="w-full">
+            <Label className="mb-2">Author *</Label>
+            <Input {...register("author")} />
+            {errors.author && (
+              <p className="text-red-500 text-sm">{errors.author.message}</p>
+            )}
+          </div>
+        </div>
+
+        <div className="flex justify-center items-center space-x-4">
+          <div className="w-full">
+            <Label className="mb-2">Genre *</Label>
+            <Input {...register("genre")} />
+            {errors.genre && (
+              <p className="text-red-500 text-sm">{errors.genre.message}</p>
+            )}
+          </div>
+
+          <div className="w-full">
+            <Label className="mb-2">ISBN *</Label>
+            <Input {...register("isbn")} />
+            {errors.isbn && (
+              <p className="text-red-500 text-sm">{errors.isbn.message}</p>
+            )}
+          </div>
         </div>
 
         <div>
-          <Label>Author</Label>
-          <Input {...register("author")} />
-          {errors.author && <p className="text-red-500 text-sm">{errors.author.message}</p>}
-        </div>
-
-        <div>
-          <Label>Genre</Label>
-          <Input {...register("genre")} />
-          {errors.genre && <p className="text-red-500 text-sm">{errors.genre.message}</p>}
-        </div>
-
-        <div>
-          <Label>ISBN</Label>
-          <Input {...register("isbn")} />
-          {errors.isbn && <p className="text-red-500 text-sm">{errors.isbn.message}</p>}
-        </div>
-
-        <div>
-          <Label>Description</Label>
+          <Label className="mb-2">Description</Label>
           <Textarea {...register("description")} />
         </div>
 
+          <div className="flex items-center justify-between space-x-2">
         <div>
-          <Label>Copies</Label>
-          <Input type="number" {...register("copies", { valueAsNumber: true })} />
-          {errors.copies && <p className="text-red-500 text-sm">{errors.copies.message}</p>}
-        </div>
-
-        <div className="flex items-center space-x-2">
-          <Switch
-            id="available"
-            checked={watch("available")}
-            onCheckedChange={(checked) => setValue("available", checked)}
+          <Label className="mb-2">Copies</Label>
+          <Input
+              type="number"
+            className="w-80"
+            {...register("copies", { valueAsNumber: true })}
           />
-          <Label htmlFor="available">Available</Label>
+          {errors.copies && (
+            <p className="text-red-500 text-sm">{errors.copies.message}</p>
+          )}
         </div>
 
-        <Button type="submit">Create Book</Button>
+          <div className="flex items-center space-x-2">
+            <Switch
+              id="available"
+              checked={watch("available")}
+              onCheckedChange={(checked) => setValue("available", checked)}
+            />
+            <Label htmlFor="available">Available</Label>
+          </div>
+        </div>
+
+          <Button className="cursor-pointer" type="submit">Create Book</Button>
       </form>
     </div>
   );
