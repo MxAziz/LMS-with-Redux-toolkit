@@ -89,13 +89,13 @@ const BorrowBook = () => {
         </Card>
 
         {/* Right: Borrow Form */}
-        <Card className="flex-1 bg-white shadow-xl rounded-2xl border border-gray-200">
+        <Card className="flex-1 bg-white shadow-xl rounded-2xl border-2 border-gray-200">
           <CardHeader className="bg-[#687fc3] text-white rounded-t-2xl">
             <div className="flex items-center">
               <Button
                 variant="ghost"
                 asChild
-                className="mr-4 hover:bg-[#5d71b8] text-white"
+                className="mr-4 hover:bg-[#5d71b8] text-white hover:text-white"
               >
                 <Link to="/books">
                   <ArrowLeft className="h-4 w-4 mr-1" />
