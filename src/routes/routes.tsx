@@ -1,7 +1,6 @@
 
 import App from "@/App";
 import ErrorPage from "@/layout/ErrorPage";
-// import AddBook from "@/pages/books/AddBook";
 import BookDetails from "@/pages/books/BookDetails";
 import Books from "@/pages/books/Books";
 import CreateBook from "@/pages/books/CreateBook";
@@ -30,7 +29,6 @@ const router = createBrowserRouter([
       },
       {
         path: "/create-book",
-        // element: <AddBook/>,
         element: <CreateBook />,
       },
       {

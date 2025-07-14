@@ -11,7 +11,7 @@ interface MobileCardProps {
 
 const MobileCard = ({ book }: MobileCardProps) => {
   return (
-    <Card className="h-full overflow-hidden shadow-2xl shadow-gray-200 bg-gradient-to-br from-[#226957] to-[#199f73] text-white">
+    <Card className="h-full overflow-hidden shadow-2xl shadow-gray-200 bg-gradient-to-br from-[#226957] to-[#687fc3] text-white">
       <CardHeader className="pb-3">
         <div className="flex justify-between items-start gap-2">
           <div className="flex-1 min-w-0">

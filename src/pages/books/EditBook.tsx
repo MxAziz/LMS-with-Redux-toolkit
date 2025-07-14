@@ -80,6 +80,7 @@ export default function EditBook() {
 
   if (isLoading) return <p className="text-center">Loading...</p>;
 
+  // TODO: Update the ui style.
   return (
     <div className="max-w-xl mx-auto p-6 bg-white rounded-xl shadow-md space-y-4">
       <h2 className="text-2xl font-bold">Edit Book</h2>

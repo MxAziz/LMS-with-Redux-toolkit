@@ -8,6 +8,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from "
 import { Badge } from "@/components/ui/badge";
 import { Tooltip, TooltipContent, TooltipTrigger, } from "@/components/ui/tooltip"
 import MobileCard from "./MobileCard";
+import DeleteBookButton from "./DeleteBook";
 
 const Books = () => {
   const { data: books, isLoading, refetch } = useGetBooksQuery({});
@@ -115,7 +116,7 @@ const Books = () => {
                         <p>Borrow Book</p>
                       </TooltipContent>
                     </Tooltip>
-                    {/* <DeleteBookButton bookId={book._id} refetch={refetch} /> */}
+                    <DeleteBookButton bookId={book._id} refetch={refetch} />
                   </div>
                 </TableCell>
               </TableRow>
