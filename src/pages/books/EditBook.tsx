@@ -1,58 +1,30 @@
+import { useGetBookByIdQuery, useUpdateBookMutation, } from "@/redux/Api/bookApi";
 import { useEffect } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Button } from "@/components/ui/button";
-import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
-import { useParams, useNavigate } from "react-router-dom";
+import { useForm, type SubmitHandler } from "react-hook-form";
+import { useNavigate, useParams } from "react-router";
 import { toast } from "sonner";
-import { useGetBookByIdQuery, useUpdateBookMutation } from "@/redux/Api/bookApi";
 
-const formSchema = z.object({
-  title: z.string().min(1, "Title is required"),
-  author: z.string().min(1, "Author is required"),
-  genre: z.string().min(1, "Genre is required"),
-  isbn: z.string().min(1, "ISBN is required"),
-  description: z.string().optional(),
-  copies: z.coerce.number().min(0, "Copies must be 0 or more"),
-  available: z.boolean().optional(),
-});
+interface IBook {
+  title: string;
+  description: string;
+  author: string;
+  genre: "FICTION" | "NON_FICTION" | "SCIENCE" | "HISTORY" | "BIOGRAPHY" | "FANTASY";
+  isbn: string;
+  copies: number;
+  available?: boolean;
+}
 
-type EditBookFormValues = z.infer<typeof formSchema>;
-
-export default function EditBook() {
-  const { id } = useParams<{ id: string }>();
+const EditBook = () => {
+  const { id } = useParams();
   const navigate = useNavigate();
-
   const { data: book, isLoading } = useGetBookByIdQuery(id);
-  const [updateBook] = useUpdateBookMutation();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    watch,
-    setValue,
-    reset,
-  } = useForm<EditBookFormValues>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: "",
-      author: "",
-      genre: "",
-      isbn: "",
-      description: "",
-      copies: 1,
-      available: true,
-    },
-  });
+  const [updateBook, { isLoading: isUpdating }] = useUpdateBookMutation();
 
-  // ✅ Properly pre-fill using reset()
+  const { register, handleSubmit, reset, formState: { errors }, } = useForm<IBook>();
+
   useEffect(() => {
-    if (book) {
+    if (book?.data) {
       reset({
         title: book.data.title,
         author: book.data.author,
@@ -60,97 +32,166 @@ export default function EditBook() {
         isbn: book.data.isbn,
         description: book.data.description,
         copies: book.data.copies,
-        available: book.data.available,
       });
     }
-  }, [book, reset]);
+  }, [book?.data, reset]);
 
+  const onSubmit: SubmitHandler<IBook> = async (data) => {
+    console.log('submit data ✅',data);
+    const updatedBook = { ...data, available: data?.copies === 0 ? false : true, };
 
-  const onSubmit = async (data: EditBookFormValues) => {
-    if (data.copies === 0) data.available = false;
     try {
-      await updateBook({ id, ...data }).unwrap();
-      toast.success("Book updated successfully");
-      navigate("/books");
-    } catch (err) {
-        console.error("Failed to update book:", err);
-      toast.error("Failed to update book");
+      const res = await updateBook({ bookId: id, body: updatedBook, }).unwrap();
+
+      if (res.success) {
+        toast.success("Book has been updated!");
+        navigate("/books", { replace: true });
+
+        console.log("✅ Updated book data:", updatedBook);
+      }
+    } catch (error) {
+      toast.error("Failed to update the book.");
+      console.error("Error while updating book:", error);
     }
   };
 
-  if (isLoading) return <p className="text-center">Loading...</p>;
-
-  // TODO: Update the ui style.
   return (
-    <div className="max-w-2xl mx-auto p-6 mt-8 bg-gradient-to-br from-[#226957] to-[#687fc3] text-white rounded-xl shadow-md space-y-4">
-      <h2 className="text-2xl font-bold">Edit Book</h2>
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div className="md:grid md:grid-cols-2 md:gap-4">
-          <div>
-            <Label className="mb-2">Title</Label>
-            <Input defaultValue={book?.data?.title} {...register("title")} />
-            {errors.title && (
-              <p className="text-red-500 text-sm">{errors.title.message}</p>
-            )}
-          </div>
-
-          <div>
-            <Label className="mb-2">Author</Label>
-            <Input {...register("author")} />
-            {errors.author && (
-              <p className="text-red-500 text-sm">{errors.author.message}</p>
-            )}
-          </div>
+    <div className="mt-10 min-h-[70vh]">
+      {isLoading ? (
+        <div className="flex items-center justify-center">
+          <p className="text-gray-500 dark:text-gray-300">Update Book Form Loading...</p>
         </div>
+      ) : (
+        <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md mt-10 border border-gray-300 dark:border-gray-700">
+          <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">
+            📚 Update Book
+          </h1>
 
-        <div className="md:grid md:grid-cols-2 md:gap-4">
-          <div>
-            <Label className="mb-2">Genre</Label>
-            <Input {...register("genre")} autoComplete="on" />
-            {errors.genre && (
-              <p className="text-red-500 text-sm">{errors.genre.message}</p>
-            )}
-          </div>
+          <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+            {/* Title */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Title
+              </label>
+              <input
+                type="text"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Book title"
+                {...register("title", { required: "Title is required" })}
+              />
+              {errors.title && (
+                <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>
+              )}
+            </div>
 
-          <div>
-            <Label className="mb-2">ISBN</Label>
-            <Input {...register("isbn")} />
-            {errors.isbn && (
-              <p className="text-red-500 text-sm">{errors.isbn.message}</p>
-            )}
-          </div>
+            {/* Author */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Author
+              </label>
+              <input
+                type="text"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Author name"
+                {...register("author", { required: "Author is required" })}
+              />
+              {errors.author && (
+                <p className="text-red-500 text-sm mt-1">{errors.author.message}</p>
+              )}
+            </div>
+
+            {/* Genre */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Genre
+              </label>
+              <select
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                {...register("genre", { required: "Genre is required" })}
+              >
+                <option value="">Select Genre</option>
+                <option value="FICTION">FICTION</option>
+                <option value="NON_FICTION">NON_FICTION</option>
+                <option value="SCIENCE">SCIENCE</option>
+                <option value="HISTORY">HISTORY</option>
+                <option value="BIOGRAPHY">BIOGRAPHY</option>
+                <option value="FANTASY">FANTASY</option>
+              </select>
+              {errors.genre && (
+                <p className="text-red-500 text-sm mt-1">{errors.genre.message}</p>
+              )}
+            </div>
+
+            {/* ISBN */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                ISBN
+              </label>
+              <input
+                type="text"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="ISBN number"
+                {...register("isbn", { required: "ISBN is required" })}
+              />
+              {errors.isbn && (
+                <p className="text-red-500 text-sm mt-1">{errors.isbn.message}</p>
+              )}
+            </div>
+
+            {/* Description */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Description
+              </label>
+              <textarea
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                rows={4}
+                placeholder="Brief summary of the book"
+                {...register("description", {
+                  required: "Description is required",
+                })}
+              />
+              {errors.description && (
+                <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>
+              )}
+            </div>
+
+            {/* Copies */}
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Copies
+              </label>
+              <input
+                type="number"
+                min="0"
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                {...register("copies", {
+                  required: "Copies is required",
+                  valueAsNumber: true,
+                  min: { value: 1, message: "Must be at least 1" },
+                })}
+              />
+              {errors.copies && (
+                <p className="text-red-500 text-sm mt-1">{errors.copies.message}</p>
+              )}
+            </div>
+
+            {/* Submit Button */}
+            <button
+              type="submit"
+              className="flex items-center justify-center w-full bg-black hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-md transition duration-200 hover:cursor-pointer"
+            >
+              {isUpdating ? (
+                 "Updating..."
+              ) : (
+                "Update Book"
+              )}
+            </button>
+          </form>
         </div>
-
-        <div>
-          <Label className="mb-2">Description</Label>
-          <Textarea {...register("description")} />
-        </div>
-
-        <div>
-          <Label className="mb-2">Copies</Label>
-          <Input
-            type="number"
-            {...register("copies", { valueAsNumber: true })}
-          />
-          {errors.copies && (
-            <p className="text-red-500 text-sm">{errors.copies.message}</p>
-          )}
-        </div>
-
-        <div className="flex items-center space-x-2">
-          <Switch
-            id="available"
-            className="cursor-pointer"
-            checked={watch("available")}
-            onCheckedChange={(checked) => setValue("available", checked)}
-          />
-          <Label htmlFor="available">Available</Label>
-        </div>
-
-        <Button className="cursor-pointer" type="submit">
-          Update Book
-        </Button>
-      </form>
+      )}
     </div>
   );
-}
+};
+
+export default EditBook;

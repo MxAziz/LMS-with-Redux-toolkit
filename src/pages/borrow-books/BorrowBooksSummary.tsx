@@ -39,7 +39,7 @@ const BorrowBooksSummary = () => {
         </CardHeader>
         <CardContent>
           {summary.length === 0 ? (
-            <p className="text-gray-500 text-center py-8">
+            <p className="text-center py-8">
               No books have been borrowed yet.
             </p>
           ) : (
