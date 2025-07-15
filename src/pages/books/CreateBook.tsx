@@ -41,7 +41,6 @@ export default function CreateBook() {
   });
 
   const onSubmit = async (data: CreateBookFormValues) => {
-    console.log(data);
     try {
       await createBook(data).unwrap();
         toast.success("Book created successfully");

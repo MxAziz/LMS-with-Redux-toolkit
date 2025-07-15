@@ -37,7 +37,6 @@ const EditBook = () => {
   }, [book?.data, reset]);
 
   const onSubmit: SubmitHandler<IBook> = async (data) => {
-    console.log('submit data ✅',data);
     const updatedBook = { ...data, available: data?.copies === 0 ? false : true, };
 
     try {
@@ -46,8 +45,6 @@ const EditBook = () => {
       if (res.success) {
         toast.success("Book has been updated!");
         navigate("/books", { replace: true });
-
-        console.log("✅ Updated book data:", updatedBook);
       }
     } catch (error) {
       toast.error("Failed to update the book.");
