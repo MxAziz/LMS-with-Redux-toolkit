@@ -56,95 +56,100 @@ const EditBook = () => {
   };
 
   return (
-    <div className="mt-10 min-h-[70vh]">
+    <div className="mt-10 min-h-[70vh] ">
       {isLoading ? (
         <div className="flex items-center justify-center">
-          <p className="text-gray-500 dark:text-gray-300">Update Book Form Loading...</p>
+          <p className="">Update Book Form Loading...</p>
         </div>
       ) : (
-        <div className="max-w-3xl mx-auto p-6 bg-white dark:bg-gray-900 rounded-lg shadow-md mt-10 border border-gray-300 dark:border-gray-700">
-          <h1 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 text-center">
+        <div className="max-w-3xl mx-auto p-12 bg-gradient-to-br from-[#226957] to-[#687fc3] text-white rounded-lg shadow-md mt-10">
+          <h1 className="text-2xl font-bold  mb-6 text-center">
             📚 Update Book
           </h1>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-            {/* Title */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Title
-              </label>
-              <input
-                type="text"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Book title"
-                {...register("title", { required: "Title is required" })}
-              />
-              {errors.title && (
-                <p className="text-red-500 text-sm mt-1">{errors.title.message}</p>
-              )}
-            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Title */}
+              <div>
+                <label className="block text-sm font-medium  mb-1">Title</label>
+                <input
+                  type="text"
+                  className="w-full px-3 py-2 border  rounded-md  focus:outline-none focus:ring-1 "
+                  placeholder="Book title"
+                  {...register("title", { required: "Title is required" })}
+                />
+                {errors.title && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.title.message}
+                  </p>
+                )}
+              </div>
 
-            {/* Author */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Author
-              </label>
-              <input
-                type="text"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Author name"
-                {...register("author", { required: "Author is required" })}
-              />
-              {errors.author && (
-                <p className="text-red-500 text-sm mt-1">{errors.author.message}</p>
-              )}
+              {/* Author */}
+              <div>
+                <label className="block text-sm font-medium  mb-1">
+                  Author
+                </label>
+                <input
+                  type="text"
+                  className="w-full px-3 py-2 border  rounded-md  focus:outline-none focus:ring-1 "
+                  placeholder="Author name"
+                  {...register("author", { required: "Author is required" })}
+                />
+                {errors.author && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.author.message}
+                  </p>
+                )}
+              </div>
             </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Genre */}
+              <div>
+                <label className="block text-sm font-medium  mb-1">Genre</label>
+                <select
+                  className="w-full px-3 py-2 border  rounded-md  focus:outline-none focus:ring-1 "
+                  {...register("genre", { required: "Genre is required" })}
+                >
+                  <option value="">Select Genre</option>
+                  <option value="FICTION">FICTION</option>
+                  <option value="NON_FICTION">NON_FICTION</option>
+                  <option value="SCIENCE">SCIENCE</option>
+                  <option value="HISTORY">HISTORY</option>
+                  <option value="BIOGRAPHY">BIOGRAPHY</option>
+                  <option value="FANTASY">FANTASY</option>
+                </select>
+                {errors.genre && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.genre.message}
+                  </p>
+                )}
+              </div>
 
-            {/* Genre */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Genre
-              </label>
-              <select
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                {...register("genre", { required: "Genre is required" })}
-              >
-                <option value="">Select Genre</option>
-                <option value="FICTION">FICTION</option>
-                <option value="NON_FICTION">NON_FICTION</option>
-                <option value="SCIENCE">SCIENCE</option>
-                <option value="HISTORY">HISTORY</option>
-                <option value="BIOGRAPHY">BIOGRAPHY</option>
-                <option value="FANTASY">FANTASY</option>
-              </select>
-              {errors.genre && (
-                <p className="text-red-500 text-sm mt-1">{errors.genre.message}</p>
-              )}
-            </div>
-
-            {/* ISBN */}
-            <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                ISBN
-              </label>
-              <input
-                type="text"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="ISBN number"
-                {...register("isbn", { required: "ISBN is required" })}
-              />
-              {errors.isbn && (
-                <p className="text-red-500 text-sm mt-1">{errors.isbn.message}</p>
-              )}
+              {/* ISBN */}
+              <div>
+                <label className="block text-sm font-medium  mb-1">ISBN</label>
+                <input
+                  type="text"
+                  className="w-full px-3 py-2 border  rounded-md  focus:outline-none focus:ring-2 "
+                  placeholder="ISBN number"
+                  {...register("isbn", { required: "ISBN is required" })}
+                />
+                {errors.isbn && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors.isbn.message}
+                  </p>
+                )}
+              </div>
             </div>
 
             {/* Description */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+              <label className="block text-sm font-medium  mb-1">
                 Description
               </label>
               <textarea
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border  rounded-md  focus:outline-none focus:ring-2 "
                 rows={4}
                 placeholder="Brief summary of the book"
                 {...register("description", {
@@ -152,19 +157,19 @@ const EditBook = () => {
                 })}
               />
               {errors.description && (
-                <p className="text-red-500 text-sm mt-1">{errors.description.message}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.description.message}
+                </p>
               )}
             </div>
 
             {/* Copies */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
-                Copies
-              </label>
+              <label className="block text-sm font-medium  mb-1">Copies</label>
               <input
                 type="number"
                 min="0"
-                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                className="w-full px-3 py-2 border  rounded-md  focus:outline-none focus:ring-2 "
                 {...register("copies", {
                   required: "Copies is required",
                   valueAsNumber: true,
@@ -172,20 +177,18 @@ const EditBook = () => {
                 })}
               />
               {errors.copies && (
-                <p className="text-red-500 text-sm mt-1">{errors.copies.message}</p>
+                <p className="text-red-500 text-sm mt-1">
+                  {errors.copies.message}
+                </p>
               )}
             </div>
 
             {/* Submit Button */}
             <button
               type="submit"
-              className="flex items-center justify-center w-full bg-black hover:bg-gray-800 text-white font-medium py-2 px-4 rounded-md transition duration-200 hover:cursor-pointer"
+              className="flex items-center justify-center bg-black text-white font-medium py-2 px-4 rounded-md transition duration-200 hover:cursor-pointer"
             >
-              {isUpdating ? (
-                 "Updating..."
-              ) : (
-                "Update Book"
-              )}
+              {isUpdating ? "Updating..." : "Update Book"}
             </button>
           </form>
         </div>
