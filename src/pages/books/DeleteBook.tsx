@@ -49,17 +49,17 @@ const DeleteBookButton = ({ bookId, refetch }: DeleteBookProps) => {
           <Trash2 className="h-4 w-4 text-red-500" />
         </Button>
       </AlertDialogTrigger>
-      <AlertDialogContent>
+      <AlertDialogContent className="bg-gradient-to-br from-[#226957] to-[#687fc3] text-white border-none">
         <AlertDialogHeader>
-          <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-          <AlertDialogDescription>
+          <AlertDialogTitle className="text-2xl font-bold">Are you sure?</AlertDialogTitle>
+          <AlertDialogDescription className="text-white">
             This action cannot be undone. This will permanently delete the book
             from the library.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={handleDelete} disabled={isDeleting}>
+          <AlertDialogCancel className="text-black cursor-pointer">Cancel</AlertDialogCancel>
+          <AlertDialogAction className="cursor-pointer" onClick={handleDelete} disabled={isDeleting}>
             {isDeleting ? "Deleting..." : "Delete"}
           </AlertDialogAction>
         </AlertDialogFooter>
