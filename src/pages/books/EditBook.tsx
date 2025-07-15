@@ -82,53 +82,52 @@ export default function EditBook() {
 
   // TODO: Update the ui style.
   return (
-    <div className="max-w-xl mx-auto p-6 bg-white rounded-xl shadow-md space-y-4">
+    <div className="max-w-2xl mx-auto p-6 mt-8 bg-gradient-to-br from-[#226957] to-[#687fc3] text-white rounded-xl shadow-md space-y-4">
       <h2 className="text-2xl font-bold">Edit Book</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <Label>Title</Label>
-          <Input
-            defaultValue={book?.data?.title}
-            {...register("title")}
-          />
-          {errors.title && (
-            <p className="text-red-500 text-sm">{errors.title.message}</p>
-          )}
+        <div className="md:grid md:grid-cols-2 md:gap-4">
+          <div>
+            <Label className="mb-2">Title</Label>
+            <Input defaultValue={book?.data?.title} {...register("title")} />
+            {errors.title && (
+              <p className="text-red-500 text-sm">{errors.title.message}</p>
+            )}
+          </div>
+
+          <div>
+            <Label className="mb-2">Author</Label>
+            <Input {...register("author")} />
+            {errors.author && (
+              <p className="text-red-500 text-sm">{errors.author.message}</p>
+            )}
+          </div>
+        </div>
+
+        <div className="md:grid md:grid-cols-2 md:gap-4">
+          <div>
+            <Label className="mb-2">Genre</Label>
+            <Input {...register("genre")} autoComplete="on" />
+            {errors.genre && (
+              <p className="text-red-500 text-sm">{errors.genre.message}</p>
+            )}
+          </div>
+
+          <div>
+            <Label className="mb-2">ISBN</Label>
+            <Input {...register("isbn")} />
+            {errors.isbn && (
+              <p className="text-red-500 text-sm">{errors.isbn.message}</p>
+            )}
+          </div>
         </div>
 
         <div>
-          <Label>Author</Label>
-          <Input
-            {...register("author")}
-          />
-          {errors.author && (
-            <p className="text-red-500 text-sm">{errors.author.message}</p>
-          )}
+          <Label className="mb-2">Description</Label>
+          <Textarea {...register("description")} />
         </div>
 
         <div>
-          <Label>Genre</Label>
-          <Input  {...register("genre")} autoComplete="on" />
-          {errors.genre && (
-            <p className="text-red-500 text-sm">{errors.genre.message}</p>
-          )}
-        </div>
-
-        <div>
-          <Label>ISBN</Label>
-          <Input  {...register("isbn")} />
-          {errors.isbn && (
-            <p className="text-red-500 text-sm">{errors.isbn.message}</p>
-          )}
-        </div>
-
-        <div>
-          <Label>Description</Label>
-          <Textarea  {...register("description")} />
-        </div>
-
-        <div>
-          <Label>Copies</Label>
+          <Label className="mb-2">Copies</Label>
           <Input
             type="number"
             {...register("copies", { valueAsNumber: true })}

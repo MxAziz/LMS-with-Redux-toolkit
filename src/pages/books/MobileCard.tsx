@@ -4,6 +4,7 @@ import { Album, Edit, Eye } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { IBook } from "@/types/types";
+import DeleteBookButton from "./DeleteBook";
 
 interface MobileCardProps {
   book: IBook;
@@ -79,6 +80,16 @@ const MobileCard = ({ book }: MobileCardProps) => {
               </Link>
             </Button>
           )}
+          {/* // TODO: BTN ta valo design koro */}
+          <Button variant="outline"
+              size="sm"
+              asChild
+              className="flex-1 min-w-0"
+>
+            <DeleteBookButton bookId={book._id} refetch={function (): void {
+              throw new Error("Function not implemented.");
+            }} />
+          </Button>
         </div>
       </CardContent>
     </Card>

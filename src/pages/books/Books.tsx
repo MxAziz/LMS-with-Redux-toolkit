@@ -32,7 +32,7 @@ const Books = () => {
         <div>
           <h1 className="text-2xl sm:text-3xl font-bold ">All Books</h1>
         </div>
-        <Button asChild className="w-full bg-[#226957] sm:w-auto">
+        <Button asChild className="w-full bg-[#226957] hover:bg-[#687fc3] sm:w-auto">
           <Link to="/create-book">
             <Plus className="h-4 w-4 mr-2" />
             Add New Book
@@ -107,7 +107,7 @@ const Books = () => {
                         {book.available && book.copies > 0 && (
                           <Button variant="ghost" size="sm" asChild>
                             <Link to={`/borrow/${book._id}`}>
-                              <Album className="h-4 w-4" />
+                              <Album className="h-4 w-4 text-emerald-700" />
                             </Link>
                           </Button>
                         )}

@@ -46,7 +46,7 @@ const DeleteBookButton = ({ bookId, refetch }: DeleteBookProps) => {
     <AlertDialog>
       <AlertDialogTrigger asChild>
         <Button variant="ghost" size="sm" className="cursor-pointer">
-          <Trash2 className="h-4 w-4" />
+          <Trash2 className="h-4 w-4 text-red-500" />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
