@@ -55,6 +55,7 @@ export default function CreateBook() {
     <div className="max-w-2xl mx-auto p-12 mt-6 bg-gradient-to-br from-[#226957] to-[#687fc3] text-white rounded-xl shadow-md space-y-4">
       <h2 className="text-2xl font-bold">Add New Book</h2>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        {/* first row */}
         <div className="md:flex justify-center items-center space-x-4">
           <div className="w-full">
             <Label className="mb-2">Title *</Label>
@@ -73,10 +74,36 @@ export default function CreateBook() {
           </div>
         </div>
 
+        {/* second row */}
         <div className="md:flex justify-center items-center space-x-4">
           <div className="w-full">
             <Label className="mb-2">Genre *</Label>
-            <Input {...register("genre")} />
+            <select
+              {...register("genre")}
+              className="w-full px-4 py-2 rounded-md border text-white focus:outline-none focus:ring-2 focus:ring-white"
+            >
+              <option value="" className="bg-[#687fc3]">
+                Select Genre
+              </option>
+              <option value="FICTION" className="bg-[#687fc3]">
+                FICTION
+              </option>
+              <option value="NON_FICTION" className="bg-[#687fc3]">
+                NON_FICTION
+              </option>
+              <option value="SCIENCE" className="bg-[#687fc3]">
+                SCIENCE
+              </option>
+              <option value="HISTORY" className="bg-[#687fc3]">
+                HISTORY
+              </option>
+              <option value="BIOGRAPHY" className="bg-[#687fc3]">
+                BIOGRAPHY
+              </option>
+              <option value="FANTASY" className="bg-[#687fc3]">
+                FANTASY
+              </option>
+            </select>
             {errors.genre && (
               <p className="text-red-500 text-sm">{errors.genre.message}</p>
             )}

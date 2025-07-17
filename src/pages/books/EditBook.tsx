@@ -108,13 +108,13 @@ const EditBook = () => {
                   className="w-full px-3 py-2 border  rounded-md  focus:outline-none focus:ring-1 "
                   {...register("genre", { required: "Genre is required" })}
                 >
-                  <option value="">Select Genre</option>
-                  <option value="FICTION">FICTION</option>
-                  <option value="NON_FICTION">NON_FICTION</option>
-                  <option value="SCIENCE">SCIENCE</option>
-                  <option value="HISTORY">HISTORY</option>
-                  <option value="BIOGRAPHY">BIOGRAPHY</option>
-                  <option value="FANTASY">FANTASY</option>
+                  <option value="" className="bg-[#687fc3]">Select Genre</option>
+                  <option value="FICTION" className="bg-[#687fc3]">FICTION</option>
+                  <option value="NON_FICTION" className="bg-[#687fc3]">NON_FICTION</option>
+                  <option value="SCIENCE" className="bg-[#687fc3]">SCIENCE</option>
+                  <option value="HISTORY" className="bg-[#687fc3]">HISTORY</option>
+                  <option value="BIOGRAPHY" className="bg-[#687fc3]">BIOGRAPHY</option>
+                  <option value="FANTASY" className="bg-[#687fc3]">FANTASY</option>
                 </select>
                 {errors.genre && (
                   <p className="text-red-500 text-sm mt-1">
